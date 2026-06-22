@@ -913,12 +913,12 @@ var queue=[];function next(){if(!queue.length){queue=names.slice();for(var k=que
 var cb=document.getElementById("sp-close");if(cb)cb.addEventListener("click",function(){stopped=true;popup.style.opacity="0";popup.style.transform="translateY(16px)";});
 var inView=new Set();var watch=["harga","checkout"].map(function(id){return document.getElementById(id);}).filter(Boolean);if(watch.length&&("IntersectionObserver" in window)){var io2=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)inView.add(e.target);else inView.delete(e.target);});suppress=inView.size>0;if(suppress){clearTimeout(hideT);popup.style.opacity="0";popup.style.transform="translateY(16px)";popup.style.pointerEvents="none";}},{threshold:0});watch.forEach(function(el){io2.observe(el);});}setTimeout(function loop(){if(stopped)return;show();setTimeout(loop,13000+Math.random()*9000);},6000);})();</script>
 <script>(function(){function parse(str){var o=[];(str||"").split(";").forEach(function(p){p=p.trim();var i=p.indexOf(":");if(i>0)o.push([p.slice(0,i).trim(),p.slice(i+1).trim()]);});return o;}document.querySelectorAll("[style-hover]").forEach(function(el){var d=parse(el.getAttribute("style-hover"));if(!d.length)return;var prev={};function on(){prev={};d.forEach(function(x){prev[x[0]]=el.style.getPropertyValue(x[0]);el.style.setProperty(x[0],x[1]);});}function off(){d.forEach(function(x){if(prev[x[0]])el.style.setProperty(x[0],prev[x[0]]);else el.style.removeProperty(x[0]);});}el.addEventListener("touchstart",on,{passive:true});el.addEventListener("touchend",function(){setTimeout(off,350);},{passive:true});el.addEventListener("touchcancel",off,{passive:true});});})();</script>
-<!-- Meta Pixel: InitiateCheckout -->
+<!-- Meta Pixel: AddToCart (IC dipegang Mayar) -->
 <script>
 (function(){
   function fireIC(){
     if(window.__icFired) return; window.__icFired=true;
-    if(window.fbq) fbq('track','InitiateCheckout',{content_name:'Content Studio', content_ids:['content-studio'], content_type:'product', value:149000, currency:'IDR'});
+    if(window.fbq) fbq('track','AddToCart',{content_name:'Content Studio', content_ids:['content-studio'], content_type:'product', value:149000, currency:'IDR'});
   }
   var el=document.getElementById('checkout');
   if(el && 'IntersectionObserver' in window){
