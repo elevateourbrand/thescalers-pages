@@ -220,6 +220,21 @@ body.dark .social-icon:hover{color:var(--grad-start);}
 .anim{opacity:1 !important;animation:none !important;transform:none !important;}
 }
 </style>
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1330113511978895');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1330113511978895&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel Code -->
 </head>
 <body>
 <div class="mode-toggle" id="modeToggle" title="Toggle night mode">🌙</div>
@@ -337,8 +352,9 @@ e.preventDefault();
 card.classList.add('is-active');
 var href = card.getAttribute('href');
 var target = card.getAttribute('target') || '_blank';
-// (opsional) Meta Pixel tracking — aktif otomatis kalau fbq sudah dipasang
-if(window.fbq){ fbq('trackCustom', 'LinkClick', {link: href}); }
+// Meta Pixel — track klik kartu link (per produk)
+var _nm = card.querySelector('.link-title');
+if(window.fbq){ fbq('trackCustom', 'LinkClick', {content_name: (_nm ? _nm.textContent.trim() : href), url: href}); }
 setTimeout(function(){
 if(href && href !== '#'){
 if(target === '_blank'){ window.open(href, '_blank', 'noopener'); }
@@ -346,6 +362,13 @@ else { window.location.href = href; }
 }
 setTimeout(function(){ card.classList.remove('is-active'); }, 500);
 }, 220);
+});
+});
+
+// ===== Meta Pixel — track klik ikon sosial =====
+document.querySelectorAll('.social-icon').forEach(function(s){
+s.addEventListener('click', function(){
+if(window.fbq){ fbq('trackCustom', 'SocialClick', {content_name: s.getAttribute('title') || ''}); }
 });
 });
 </script>
